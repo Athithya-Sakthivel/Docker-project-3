@@ -128,5 +128,6 @@ Once the pipeline is running, use the following steps to test the API:
 
 ## Screenshots
 
-![Screenshot (98)](https://github.com/user-attachments/assets/ea3104d8-ac7a-4770-bbc5-5608ecee6a37)
-![Screenshot (99)](https://github.com/user-attachments/assets/c4dc5250-f520-4264-9c0c-caf4419bc3cf)
+![Screenshot (98)](https://github.com/user-attachments/assets/4249c6ff-1dce-455b-8b08-f2b704d5c3e2)
+![Screenshot (99)](https://github.com/user-attachments/assets/a80ada5d-9af4-4d14-8686-a0b87b68e66c)
+
