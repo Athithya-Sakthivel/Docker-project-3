@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  preprocess:
+    build:
+      context: ./preprocessing
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data  # Mount the data directory for raw and processed data
+    entrypoint: ["python", "preprocess.py"]
+
+  train:
+    build:
+      context: ./training
+      dockerfile: Dockerfile
+    depends_on:
+      - preprocess
+    volumes:
+      - ./data:/data  # Shared data directory for processed data
+      - shared-models:/models  # Shared volume for model output
+    entrypoint: ["python", "train.py"]
+
+  serve:
+    build:
+      context: ./serving
+      dockerfile: Dockerfile
+    depends_on:
+      - train
+    ports:
+      - "8000:8000"  # Expose FastAPI service
+    volumes:
+      - shared-models:/models  # Shared volume for model input
+    entrypoint:
+      sh -c "while [ ! -f /models/model.joblib ]; do 
+        echo 'Waiting for model...'; sleep 5; 
+      done && uvicorn serve:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  shared-models:  # Shared volume for models
